@@ -31,7 +31,10 @@ public class Activator implements BundleActivator {
 	 * BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {
-		if (FirebaseApp.getApps().isEmpty()) {
+		try {
+			FirebaseApp.getInstance();
+		}
+		catch (IllegalStateException e) {
 			FirebaseOptions options = new FirebaseOptions.Builder()
 					.setServiceAccount(new FileInputStream("DrToDoLittle-10b9f17b6eb3.json"))
 					.setDatabaseUrl("https://drtodolittle.firebaseio.com/").build();
