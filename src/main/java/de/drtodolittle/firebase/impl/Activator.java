@@ -9,6 +9,7 @@ import java.util.Hashtable;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
+import org.osgi.framework.ServiceRegistration;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -22,6 +23,8 @@ import de.drtodolittle.firebase.api.TokenService;
 public class Activator implements BundleActivator {
 
 
+	private ServiceRegistration<TokenService> service;
+
 	/* (non-Javadoc)
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
@@ -33,7 +36,7 @@ public class Activator implements BundleActivator {
 		FirebaseApp.initializeApp(options);
 		Hashtable<String, Object> properties = new Hashtable<String, Object>();
 		properties.put(Constants.SERVICE_PID, FirebaseTokenService.PID);
-		context.registerService(TokenService.class, new FirebaseTokenService(), properties);
+		service = context.registerService(TokenService.class, new FirebaseTokenService(), properties);
 	}
 
 	/* (non-Javadoc)
@@ -41,7 +44,7 @@ public class Activator implements BundleActivator {
 	 */
 	public void stop(BundleContext context) throws Exception {
 		FirebaseApp.getApps().clear();
-
+		service.unregister();
 	}
 
 }
