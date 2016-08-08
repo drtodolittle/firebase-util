@@ -18,9 +18,10 @@
 	<bean class="org.apache.camel.component.servlet.osgi.OsgiServletRegisterer" destroy-method="unregister" init-method="register">
 		<property name="alias" value="/intern"/>
 		<property name="httpService" ref="httpService"/>
-		<property name="servlet" ref="camelServlet1"/>
+		<property name="servlet" ref="camelServlet"/>
+		<property name="servletName" value="firebase-util-servlet"></property>
 	</bean>
-	<bean class="org.apache.camel.component.servlet.CamelHttpTransportServlet" id="camelServlet1"/>
+	<bean class="org.apache.camel.component.servlet.CamelHttpTransportServlet" id="camelServlet"/>
 
 	<camelContext xmlns="http://camel.apache.org/schema/blueprint">
 		<restConfiguration bindingMode="off" component="servlet" contextPath="/intern" enableCORS="false"/>
