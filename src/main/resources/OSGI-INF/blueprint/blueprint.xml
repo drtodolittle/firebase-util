@@ -23,7 +23,7 @@
 	</bean>
 	<bean class="org.apache.camel.component.servlet.CamelHttpTransportServlet" id="camelServlet"/>
 
-	<camelContext xmlns="http://camel.apache.org/schema/blueprint">
+	<camelContext id="firebase-util" xmlns="http://camel.apache.org/schema/blueprint">
 		<restConfiguration bindingMode="off" component="servlet" contextPath="/intern" enableCORS="false"/>
 		<rest path="/ping">
 			<get uri="/" >
@@ -38,7 +38,7 @@
 		<route id="ping">
 			<from uri="direct:ping" />
 			<transform>
-				<constant>Hello, I'm Tokenservice!</constant>
+				<constant>Hello Dirk, I'm Tokenservice!</constant>
 			</transform>
 		</route>
 		<route id="validatetoken">
