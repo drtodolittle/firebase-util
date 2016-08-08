@@ -32,13 +32,12 @@ public class Activator implements BundleActivator {
 	 */
 	public void start(BundleContext context) throws Exception {
 		try {
-			FirebaseApp.getInstance();
-		}
-		catch (IllegalStateException e) {
 			FirebaseOptions options = new FirebaseOptions.Builder()
 					.setServiceAccount(new FileInputStream("DrToDoLittle-10b9f17b6eb3.json"))
 					.setDatabaseUrl("https://drtodolittle.firebaseio.com/").build();
 			FirebaseApp.initializeApp(options);
+		}
+		catch (IllegalStateException e) {
 		}
 		Hashtable<String, Object> properties = new Hashtable<String, Object>();
 		properties.put(Constants.SERVICE_PID, FirebaseTokenService.PID);
