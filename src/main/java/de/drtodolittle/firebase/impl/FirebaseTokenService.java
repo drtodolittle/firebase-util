@@ -22,7 +22,7 @@ public class FirebaseTokenService implements TokenService {
 	 * @see de.drtodolittle.firebase.api.TokenService#verify(java.lang.String)
 	 */
 	public String verify(String token) {
-		String uid = null;
+		String email = null;
 		Task<FirebaseToken> task = FirebaseAuth.getInstance().verifyIdToken(token);
 		while (!task.isComplete()) {
 			try {
@@ -33,9 +33,12 @@ public class FirebaseTokenService implements TokenService {
 			}
 		}
 		if (task.isSuccessful()) {
-			uid = task.getResult().getUid();
+			email = task.getResult().getEmail();
 		}
-		return uid;
+		else {
+			task.getException().printStackTrace(); 
+		}
+		return email;
 	}
 
 }
